@@ -1,0 +1,16 @@
+.card {
+    background-color: var(--color-cards);
+    border: solid 1px var(--color-outline);
+    border-radius: var(--radius1);
+}
+
+main .card {
+    margin-bottom: var(--spacing3);
+}
+
+@media only screen and (max-width: 768px) {
+    
+    main .card {
+        margin-bottom: var(--spacing2);
+    }
+}

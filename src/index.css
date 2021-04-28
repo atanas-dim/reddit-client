@@ -1,6 +1,10 @@
+:root {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +14,62 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#app-container {
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 620px) minmax(120px, 280px) 1fr;
+  grid-template-rows: fit-content(100%) fit-content(100%) auto;
+  grid-gap: var(--spacing3);
+}
+
+header {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 620px) minmax(120px, 280px) 1fr;
+  grid-gap: var(--spacing3);
+}
+
+nav {
+  grid-column: 2/3;
+}
+
+main {
+  grid-column: 2/3;
+}
+
+aside {
+  grid-column: 3/4;
+}
+
+@media only screen and (max-width: 768px) {
+  #app-container {
+    grid-template-columns: 1fr;
+    
+    grid-gap: var(--spacing2);
+  }
+
+  header {
+    grid-template-columns: 1fr minmax(140px, 100%) 60px 1fr;
+    grid-gap: var(--spacing2);
+  }
+
+  aside {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0 var(--spacing2);
+  }
+
+  main {
+    grid-column: 1;
+    grid-row: 3;
+    margin: 0 var(--spacing2);
+  }  
+
+  aside .card {
+    /* height: 60px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

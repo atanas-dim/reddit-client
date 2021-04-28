@@ -1,0 +1,63 @@
+.post-details {
+    font-size: var(--font-size4);
+    color: var(--color-details);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing1) var(--spacing2);
+}
+
+.author-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.author-avatar{
+    width: 32px;
+    height: 32px;
+    border: solid 1px var(--color-details);
+    border-radius: var(--radius4);
+    margin-right: var(--spacing0)
+}
+
+.username {
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+.post-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: var(--spacing1) var(--spacing2) var(--spacing2);
+}
+
+.post-image img{
+    width: 100%;
+}
+
+.comments-container {
+    padding: var(--spacing1) var(--spacing2) 0;
+}
+
+.comments-btn {
+    font-size: var(--font-size4);
+    color: var(--color-details);
+    background: transparent;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: var(--spacing1);
+}
+
+.comments-btn:hover {
+    text-decoration: underline;
+}
+
+.comments-btn > :first-child {
+    width: 16px;
+    height: 16px;
+    margin-right: var(--spacing0)
+}
