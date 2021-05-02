@@ -13,7 +13,7 @@ export const subredditsAsideSlice = createSlice({
     initialState: {
         subredditNames: [],
         isOpen: false,
-        currentSubreddit: 'home',
+        currentSubreddit: '/',
     },
     reducers: {
         setIsOpen: (state, action) => {

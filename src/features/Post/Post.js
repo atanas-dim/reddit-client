@@ -5,22 +5,22 @@ import Card from '../../components/Card/Card';
 import Comment from '../Comment/Comment';
 import { FaComments } from "react-icons/fa";
 import timeToTimeAgo from '../../utils/timeToTimeAgo';
-import { selectAbout } from '../../app/appSlice';
 import { IoLogoReddit } from "react-icons/io5";
 import { fetchSubredditAbout } from '../../api/reddit-api';
+import { selectIsLoading } from '../../app/appSlice';
 
 const Post = (props) => {
-    const { data, type } = props;
-    const dispatch = useDispatch();
-    const about = useSelector(selectAbout);
-    // console.log(data);
+    const { data } = props;
     const [subredditIcon, setSubredditIcon] = useState('');
+    const isLoading = useSelector(selectIsLoading);
   
     useEffect(() => {
+        if (!isLoading) {
             fetchSubredditAbout(data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
-                // console.log(data.subreddit_name_prefixed);
             });
+        }
+        return () => setSubredditIcon('');;
     }, [data.subreddit_name_prefixed])
 
 

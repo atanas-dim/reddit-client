@@ -61,13 +61,17 @@ export const appSlice = createSlice({
         },
         [loadSubredditAbout.pending]: (state, action) => {
             console.log('pending')
+            state.isLoading = true;
+            console.log(state.isLoading);
         },
         [loadSubredditAbout.fulfilled]: (state, action) => {
             console.log('fulfilled');
             state.about = action.payload;
+            state.isLoading = false;
         },
         [loadSubredditAbout.rejected]: (state, action) => {
             console.log('rejected')
+            state.isLoading = false;
         },
     }
 })

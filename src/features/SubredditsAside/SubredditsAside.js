@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './SubredditsAside.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSubredditNames, selectIsOpen, setIsOpen, setCurrentSubreddit, selectCurrentSubreddit, loadSubredditNames } from './subredditsAsideSlice';
+import { selectSubredditNames, selectIsOpen, setIsOpen, selectCurrentSubreddit, loadSubredditNames } from './subredditsAsideSlice';
 import Card from '../../components/Card/Card';
 import { AiFillHome } from "react-icons/ai";
 import { BiSubdirectoryRight } from "react-icons/bi";
@@ -30,17 +30,13 @@ const SubredditsAside = () => {
     }, [dispatch]);
     //to rework closes here
 
-    const onClickHandler = (event, subreddit) => {
-        dispatch(setCurrentSubreddit(subreddit));
-    }
-
     const createSubredditButton = (subreddit) => {
         const subredditName = subreddit.display_name_prefixed;
         const subredditIcon = subreddit.icon_img;
 
         return (
             <Link to={`/${subredditName}`}  
-                  onClick={(e) => onClickHandler(e,subredditName)} 
+                //   onClick={(e) => onClickHandler(e,subredditName)} 
                   className={currentSubreddit === subredditName ? "subreddit-link selected" : "subreddit-link"}
                 >
                 { subredditIcon ? <img src={subredditIcon} alt="subreddit avatar" /> : <IoLogoReddit /> }
@@ -57,8 +53,7 @@ const SubredditsAside = () => {
                     <ul id="categories-container">
                         <li id="home-link-container" >
                             <Link to="/" 
-                                  className={currentSubreddit === 'home' ? "nav-link selected" : "nav-link"}
-                                  onClick={(e) => onClickHandler(e, 'home')}
+                                  className={currentSubreddit === '/' ? "nav-link selected" : "nav-link"}
                             >
                                 {icons.home}Home
                             </Link>
@@ -66,7 +61,7 @@ const SubredditsAside = () => {
                         <li id="subreddits-link-container">
                             <Link to="#" 
                                   onClick={() => toggleSubreddits()} 
-                                  className={(currentSubreddit !== 'home' && isOpen) ? "nav-link selected" : "nav-link"} 
+                                  className={(currentSubreddit !== '/' && isOpen) ? "nav-link selected" : "nav-link"} 
                             >
                                 {icons.subreddits}Subreddits
                             </Link>

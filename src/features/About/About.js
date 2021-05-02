@@ -2,13 +2,11 @@ import React from 'react';
 import './About.css'
 import Card from '../../components/Card/Card';
 import { selectAbout } from '../../app/appSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const About = () => {
-    const dispatch = useDispatch();
     const about = useSelector(selectAbout);
-    // console.log(about);
 
     return (
         <Card className="about-card" >
