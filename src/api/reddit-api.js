@@ -10,7 +10,7 @@ export const fetchSubredditNames = async () => {
 }
 
 export const fetchSubredditPosts = async (subreddit) => {
-    const endpoint = `${url}/r/${subreddit}/.json`;
+    const endpoint = `${url}/${subreddit}/.json`;
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     console.log('fetching')
@@ -19,7 +19,7 @@ export const fetchSubredditPosts = async (subreddit) => {
 }
 
 export const fetchSubredditAbout = async (subreddit) => {
-    const endpoint = `${url}/r/${subreddit}/about.json`;
+    const endpoint = `${url}/${subreddit}/about.json`;
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     // console.log('fetching')

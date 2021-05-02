@@ -17,16 +17,12 @@ const Post = (props) => {
     const [subredditIcon, setSubredditIcon] = useState('');
   
     useEffect(() => {
-        if (type === 'home-post') {
-            fetchSubredditAbout(data.subreddit).then(response => {
+            fetchSubredditAbout(data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
-                console.log('setting home icon');
+                // console.log(data.subreddit_name_prefixed);
             });
-        } else if (type === 'subreddit-post') {
-            console.log('setting subreddit icon');
-            setSubredditIcon(about.icon_img);
-        }
-    }, [data])
+    }, [data.subreddit_name_prefixed])
+
 
     const loadComments = () => {
         return (

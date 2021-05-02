@@ -27,27 +27,37 @@ export const appSlice = createSlice({
     initialState: {
         posts: [],
         about: [],
+        isLoading: false,
     },
     extraReducers: {
         [loadHomePosts.pending]: (state, action) => {
-            console.log('pending')
+            console.log('pending');
+            state.isLoading = true;
+            console.log(state.isLoading);
         },
         [loadHomePosts.fulfilled]: (state, action) => {
             console.log('fulfilled')
             state.posts = action.payload;
+            state.isLoading = false;
+            console.log(state.isLoading);
         },
         [loadHomePosts.rejected]: (state, action) => {
             console.log('rejected')
+            state.isLoading = false;
         },
         [loadSubredditPosts.pending]: (state, action) => {
             console.log('pending')
+            state.isLoading = true;
+            console.log(state.isLoading);
         },
         [loadSubredditPosts.fulfilled]: (state, action) => {
             console.log('fulfilled')
             state.posts = action.payload;
+            state.isLoading = false;
         },
         [loadSubredditPosts.rejected]: (state, action) => {
             console.log('rejected')
+            state.isLoading = false;
         },
         [loadSubredditAbout.pending]: (state, action) => {
             console.log('pending')
@@ -64,4 +74,5 @@ export const appSlice = createSlice({
 
 export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
+export const selectIsLoading = state => state.app.isLoading;
 export default appSlice.reducer;
