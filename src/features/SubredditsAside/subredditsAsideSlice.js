@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchSubreddits } from '../../api/reddit-api';
+import { fetchSubredditNames } from '../../api/reddit-api';
 
-export const loadSubreddits = createAsyncThunk(
-    "subreddits/loadSubreddits",
+export const loadSubredditNames = createAsyncThunk(
+    "subreddits/loadSubredditsNames",
     async () => {
-        return await fetchSubreddits();
+        return await fetchSubredditNames();
     }
 );
 
 export const subredditsAsideSlice = createSlice({
     name: 'subreddits',
     initialState: {
-        subreddits: [],
+        subredditNames: [],
         isOpen: false,
         currentSubreddit: 'home',
     },
@@ -26,15 +26,15 @@ export const subredditsAsideSlice = createSlice({
         },
     },
     extraReducers: {
-        [loadSubreddits.pending]: (state, action) => {
+        [loadSubredditNames.pending]: (state, action) => {
             // console.log('pending')
         },
-        [loadSubreddits.fulfilled]: (state, action) => {
+        [loadSubredditNames.fulfilled]: (state, action) => {
             // console.log('fulfilled')
-            state.subreddits = action.payload;
+            state.subredditNames = action.payload;
             // console.log(state.subreddits.filter(s => s !== 'r/Home'));
         },
-        [loadSubreddits.rejected]: (state, action) => {
+        [loadSubredditNames.rejected]: (state, action) => {
             // console.log('rejected')
         },
     }
@@ -42,6 +42,6 @@ export const subredditsAsideSlice = createSlice({
 
 export const selectIsOpen = state => state.subredditsAside.isOpen;
 export const selectCurrentSubreddit = state => state.subredditsAside.currentSubreddit;
-export const selectSubreddits = state => state.subredditsAside.subreddits;
+export const selectSubredditNames = state => state.subredditsAside.subredditNames;
 export const { setIsOpen, setCurrentSubreddit } = subredditsAsideSlice.actions;
 export default subredditsAsideSlice.reducer;

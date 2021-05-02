@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchHomePosts, fetchSubredditPosts } from '../api/reddit-api';
+import { fetchHomePosts, fetchSubredditPosts, fetchSubredditAbout } from '../api/reddit-api';
 
 export const loadHomePosts = createAsyncThunk(
     "app/loadHomePosts",
@@ -15,11 +15,18 @@ export const loadSubredditPosts = createAsyncThunk(
     }
 );
 
+export const loadSubredditAbout = createAsyncThunk(
+    "app/loadSubredditAbout",
+    async (subreddit) => {
+        return await fetchSubredditAbout(subreddit);
+    }
+);
+
 export const appSlice = createSlice({
     name: 'app',
     initialState: {
         posts: [],
-        avatars: {},
+        about: [],
     },
     extraReducers: {
         [loadHomePosts.pending]: (state, action) => {
@@ -42,9 +49,19 @@ export const appSlice = createSlice({
         [loadSubredditPosts.rejected]: (state, action) => {
             console.log('rejected')
         },
+        [loadSubredditAbout.pending]: (state, action) => {
+            console.log('pending')
+        },
+        [loadSubredditAbout.fulfilled]: (state, action) => {
+            console.log('fulfilled');
+            state.about = action.payload;
+        },
+        [loadSubredditAbout.rejected]: (state, action) => {
+            console.log('rejected')
+        },
     }
 })
 
-export const selectAvatars = state => state.app.avatars;
+export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
 export default appSlice.reducer;

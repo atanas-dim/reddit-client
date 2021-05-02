@@ -21,7 +21,6 @@ function App() {
         <main>
           <Switch>
             <Route path="/" exact component={Home}/>
-            {/* <Route path="/subreddits/" component={Subreddit} /> */}
             <Route path="/r/:id" component={Subreddit} />
           </Switch>
         </main>

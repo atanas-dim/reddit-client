@@ -104,6 +104,10 @@
         border-bottom: 0;
     }
 
+    #categories-container li {
+        padding: 0;
+    }
+
     .nav-btn.category {
         margin: 0;
     }

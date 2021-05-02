@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './SubredditsAside.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSubreddits, selectIsOpen, setIsOpen, setCurrentSubreddit, loadSubreddits, selectCurrentSubreddit } from './subredditsAsideSlice';
+import { selectSubredditNames, selectIsOpen, setIsOpen, setCurrentSubreddit, selectCurrentSubreddit, loadSubredditNames } from './subredditsAsideSlice';
 import Card from '../../components/Card/Card';
 import { AiFillHome } from "react-icons/ai";
 import { BiSubdirectoryRight } from "react-icons/bi";
@@ -10,7 +10,7 @@ import { IoLogoReddit } from "react-icons/io5";
 
 const SubredditsAside = () => {
     const dispatch = useDispatch();
-    const subreddits = useSelector(selectSubreddits);
+    const subreddits = useSelector(selectSubredditNames);
     const currentSubreddit = useSelector(selectCurrentSubreddit);
     const isOpen = useSelector(selectIsOpen);
     const icons = {
@@ -19,24 +19,18 @@ const SubredditsAside = () => {
     };
     
     // to rework
-    useEffect(() => {
-        dispatch(loadSubreddits());
-    }, [dispatch]);
-
     const toggleSubreddits = () => {
         dispatch(setIsOpen(!isOpen))
-        !isOpen && dispatch(loadSubreddits());
+        !isOpen && dispatch(loadSubredditNames());
     }
  
     useEffect(() => {
         dispatch(setIsOpen(window.innerWidth >= 768));
-        dispatch(loadSubreddits());
+        dispatch(loadSubredditNames());
     }, [dispatch]);
-
     //to rework closes here
 
     const onClickHandler = (event, subreddit) => {
-        console.log('this is ' + subreddit)
         dispatch(setCurrentSubreddit(subreddit));
     }
 

@@ -3,21 +3,22 @@ import Filters from '../Filters/Filters';
 import Post from '../Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadHomePosts, selectPosts } from '../../app/appSlice';
+import { selectCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts); 
-    // console.log(posts);
+    const currentSubreddit = useSelector(selectCurrentSubreddit); 
 
     useEffect(() => {
         dispatch(loadHomePosts());
-    }, [dispatch]);
+        console.log('fetching home posts')
+    }, [dispatch, currentSubreddit]);
 
     return (
         <>
-            {/* <h1>Home</h1> */}
             <Filters />           
-           {posts.map((post, index) => <Post key={index} data={post.data} type="home-post" />)}
+            {posts.map((post, index) => <Post key={index} data={post.data} type="home-post" />)}
         </>
     )
 }

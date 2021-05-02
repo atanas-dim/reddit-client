@@ -39,10 +39,11 @@
     border: solid 1px var(--color-outline);
     border-radius: var(--radius4);
     margin-right: var(--spacing1);
+    background: white;
 }
 
 .profile-names div {
-    margin: var(--spacing0) var(--spacing0) var(--spacing0) 0;
+    margin: var(--spacing0) var(--spacing1) var(--spacing0) 0;
 }
 
 .username {
@@ -60,10 +61,19 @@
     padding: var(--spacing1) var(--spacing2) var(--spacing2);
 }
 
+.post-image {
+    background: var(--color-outline);
+    display: flex;
+    justify-content: center;
+    
+}
+
 .post-image img{
-    width: 100%;
+    width: auto;
+    max-height: 480px;
+    margin: 0 auto;
     border-top: solid 1px var(--color-outline);
-    border-bottom: solid 1px var(--color-outline); 
+    /* border-bottom: solid 1px var(--color-outline); */
 }
 
 .video-link {
@@ -72,6 +82,7 @@
 
 .comments-container {
     padding: var(--spacing1) var(--spacing2) 0;
+    border-top: solid 1px var(--color-outline);
 }
 
 .comments-btn {
