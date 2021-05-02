@@ -13,7 +13,7 @@ const Comment = () => {
             <div className="comment-contents">
                 <div className="comment-details">
                     <span className="username">profilename</span>
-                    <span className="date">1 hour ago</span>
+                    <span className="date">1h ago</span>
                 </div>
 
                 <div className="comment-text">

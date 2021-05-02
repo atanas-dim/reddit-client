@@ -3,7 +3,7 @@ import appReducer from './appSlice';
 import themeReducer from '../features/Theme/themeSlice';
 import searchReducer from '../features/Search/searchSlice';
 import filtersReducer from '../features/Filters/filtersSlice';
-import subredditsReducer from '../features/Subreddits/subredditsSlice';
+import subredditsAsideReducer from '../features/SubredditsAside/subredditsAsideSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +11,6 @@ export const store = configureStore({
     theme: themeReducer,
     search: searchReducer,
     filters: filtersReducer,
-    subreddits: subredditsReducer,
+    subredditsAside: subredditsAsideReducer,
   },
 });

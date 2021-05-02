@@ -1,15 +1,23 @@
-import React from 'react';
-import './Home.css';
+import React, { useEffect } from 'react';
+import Filters from '../Filters/Filters';
 import Post from '../Post/Post';
-import { useSelector } from 'react-redux';
-import { selectPosts } from '../../app/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadHomePosts, selectPosts } from '../../app/appSlice';
 
 const Home = () => {
-    const posts = useSelector(selectPosts);
+    const dispatch = useDispatch();
+    const posts = useSelector(selectPosts); 
+    // console.log(posts);
+
+    useEffect(() => {
+        dispatch(loadHomePosts());
+    }, [dispatch]);
 
     return (
         <>
-           {posts.map(() => <Post />)}
+            {/* <h1>Home</h1> */}
+            <Filters />           
+           {posts.map((post, index) => <Post key={index} data={post.data} type="home-post" />)}
         </>
     )
 }

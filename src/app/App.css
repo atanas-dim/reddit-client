@@ -38,6 +38,7 @@ h2 {
 h3 {
     font-size: var(--font-size2);
     font-weight: 700;
+    line-height: 1.5rem;
 }
 
 a {
@@ -51,5 +52,40 @@ p {
 button {
     border: 0;
     padding: 0;
+}
+
+.nav-link {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size2);
+    color: var(--color-highlight);
+    background: none;
+    padding: var(--spacing1) var(--spacing2);
+    border-radius: var(--radius4);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+@media (hover: hover) {
+    .nav-link:hover {
+        background: var(--color-bg);
+        transition: 0.2s;
+    }
+}
+
+.nav-link.selected {
+    background: var(--color-bg);
+    transition: 0.2s;
+}
+
+.nav-link:active {
+    background: var(--color-outline);
+}
+
+.nav-link > :first-child {
+    width: 24px;
+    height: 24px;
+    margin-right: var(--spacing0);
 }
 
