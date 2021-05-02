@@ -49,7 +49,7 @@ const SubredditsAside = () => {
                   onClick={(e) => onClickHandler(e,subredditName)} 
                   className={currentSubreddit === subredditName ? "subreddit-link selected" : "subreddit-link"}
                 >
-                { subredditIcon ? <img src={subredditIcon} /> : <IoLogoReddit /> }
+                { subredditIcon ? <img src={subredditIcon} alt="subreddit avatar" /> : <IoLogoReddit /> }
                 {subredditName}
             </Link>  
         )

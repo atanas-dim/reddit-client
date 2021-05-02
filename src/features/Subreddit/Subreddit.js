@@ -7,10 +7,7 @@ import { loadSubredditPosts ,selectPosts } from '../../app/appSlice';
 const Subreddit = ({match}) => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts); 
-    const currentSubreddit = match.params.id; 
-    const subredditIcon = currentSubreddit.icon_img;
-
-    // console.log(currentSubreddit);
+    const currentSubreddit = match.params.id;
 
     useEffect(() => {
         dispatch(loadSubredditPosts(currentSubreddit));
