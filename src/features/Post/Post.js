@@ -7,28 +7,37 @@ import { FaComments } from "react-icons/fa";
 import timeToTimeAgo from '../../utils/timeToTimeAgo';
 import { IoLogoReddit } from "react-icons/io5";
 import { fetchSubredditAbout } from '../../api/reddit-api';
-import { selectIsLoading } from '../../app/appSlice';
+import { selectIsLoading, loadComments, setShowingComments } from '../../app/appSlice';
 
 const Post = (props) => {
-    const { data } = props;
+    const { post, postIndex } = props;
+    const dispatch = useDispatch();
     const [subredditIcon, setSubredditIcon] = useState('');
     const isLoading = useSelector(selectIsLoading);
-  
+    const comments = post.comments.slice(0, post.comments.length - 1);
+
+    console.log(comments);
+    
     useEffect(() => {
         if (!isLoading) {
-            fetchSubredditAbout(data.subreddit_name_prefixed).then(response => {
+            fetchSubredditAbout(post.data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
             });
         }
-        return () => setSubredditIcon('');;
-    }, [data.subreddit_name_prefixed])
+        return () => setSubredditIcon('');
+    }, [post.data.subreddit_name_prefixed, isLoading])
 
+    const handleLoadComments = () => {
+        dispatch(setShowingComments({index: postIndex, showingComments: post.showingComments}));
+        if (!post.showingComments) {
+            dispatch(loadComments( {index: postIndex, permalink: post.data.permalink, showingComments: post.showingComments} ));
+        }
+    }
 
-    const loadComments = () => {
+    const createComments = () => {
         return (
             <>
-                <Comment />
-                <Comment />
+                {comments.map((comment, index) => <Comment key={index} comment={comment} />)}
             </>
         )
     }
@@ -48,28 +57,31 @@ const Post = (props) => {
                     <span className="author-profile">
                         {createSubredditAvatar(subredditIcon)}
                         <div className="profile-names" >
-                            <div><span className="subreddit-name">{data.subreddit_name_prefixed}</span></div>
-                            <div><span className="username" >posted by {data.author}</span> </div>
+                            <div><span className="subreddit-name">{post.data.subreddit_name_prefixed}</span></div>
+                            <div><span className="username" >posted by {post.data.author}</span> </div>
                         </div>
                     </span>
-                    <span className="date">{timeToTimeAgo(data.created_utc)}</span>
+                    <span className="date">{timeToTimeAgo(post.data.created_utc)}</span>
                 </div>
                 <div className="post-text">
-                    <h3>{data.title}</h3>
+                    <h3>{post.data.title}</h3>
                 </div>
-                { data.post_hint === 'image' &&
+                { post.data.post_hint === 'image' &&
                     <div className="post-image">
-                        <img src={data.url_overridden_by_dest} alt="media" ></img>   
+                        <img src={post.data.url_overridden_by_dest} alt="media" ></img>   
                     </div>
                 }
                 <div className="comments-container">
                     <button 
                         className="comments-btn"
-                        onClick={() => console.log('comments')}
+                        onClick={() => handleLoadComments()}
                     >
-                        <FaComments />{`${data.num_comments} comments`}
+                        <FaComments />
+                        {/* {post.showingComments ? 'Hide top comments' : 'See top comments'} */}
+                        {post.data.num_comments} comments
                     </button>
-                    {loadComments()}
+                    {(comments && post.showingComments ) && createComments()}
+                    
                 </div>
                 
         </Card>

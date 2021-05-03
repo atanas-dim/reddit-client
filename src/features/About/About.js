@@ -3,19 +3,25 @@ import './About.css'
 import Card from '../../components/Card/Card';
 import { selectAbout } from '../../app/appSlice';
 import { useSelector } from 'react-redux';
-
+import { IoLogoReddit } from "react-icons/io5";
 
 const About = () => {
     const about = useSelector(selectAbout);
+    let color;
+    if (about.primary_color) {
+        color = about.primary_color;
+    } else {
+        color = 'var(--color-outline)';
+    }
 
     return (
         <Card className="about-card" >
-            <div className="about-banner-container" style={{background: about.primary_color}}  >
+            <div className="about-banner-container" style={{background: color}}  >
                 { about.banner_img && <img src={about.banner_img} alt="cover" className="about-banner"></img> }
             </div>
             <div className="subreddit-info">
                 <div className="avatar-container">
-                    <img src={about.icon_img} className="subreddit-avatar main" alt="subreddit avatar"></img>
+                    { about.icon_img ? <img src={about.icon_img} className="subreddit-avatar main" alt="subreddit avatar"></img> : <IoLogoReddit className="subreddit-avatar main" /> }
                 </div>
                 <div className="subreddit-details">
                     <div className="subreddit-titles" >

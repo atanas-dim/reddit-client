@@ -13,7 +13,7 @@ export const filtersSlice = createSlice({
     reducers: {
         setCurrentFilter: (state, action) => {
             state.currentFilter = action.payload;
-            console.log(state.currentFilter);
+            // console.log(state.currentFilter);
         },
     }
 })

@@ -43,7 +43,7 @@
 }
 
 .profile-names div {
-    margin: var(--spacing0) var(--spacing1) var(--spacing0) 0;
+    margin: 0 var(--spacing1) 0;
 }
 
 .username {
@@ -65,15 +65,12 @@
     background: var(--color-outline);
     display: flex;
     justify-content: center;
-    
+    border-top: solid 1px var(--color-outline);
 }
 
 .post-image img{
-    width: auto;
     max-height: 480px;
     margin: 0 auto;
-    border-top: solid 1px var(--color-outline);
-    /* border-bottom: solid 1px var(--color-outline); */
 }
 
 .video-link {
@@ -96,8 +93,10 @@
     margin-bottom: var(--spacing1);
 }
 
-.comments-btn:hover {
-    text-decoration: underline;
+@media (hover: hover) {
+    .comments-btn:hover {
+        text-decoration: underline;
+    }    
 }
 
 .comments-btn > :first-child {
@@ -110,5 +109,13 @@
     .profile-names {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .post-details {
+        align-items: flex-start;
+    }
+
+    .profile-names div {
+        margin: 0 var(--spacing1) var(--spacing0) 0;
     }
 }

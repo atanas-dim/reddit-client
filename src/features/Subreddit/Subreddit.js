@@ -3,9 +3,10 @@ import About from '../About/About';
 import Filters from '../Filters/Filters';
 import Post from '../Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSubredditPosts ,selectPosts, selectIsLoading } from '../../app/appSlice';
+import { loadPostsHot ,selectPosts, selectIsLoading } from '../../app/appSlice';
 import { loadSubredditAbout } from '../../app/appSlice';
-import {  setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
+import { setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
+import { setCurrentFilter } from '../Filters/filtersSlice';
 
 const Subreddit = ({match}) => {
     const dispatch = useDispatch();
@@ -13,25 +14,26 @@ const Subreddit = ({match}) => {
     const isLoading = useSelector(selectIsLoading);
     const currentSubreddit = match.params.id;
     const prefixedSubreddit = "r/" + currentSubreddit;
+    // console.log(posts.map(post => post.data.permalink));
+    // console.log(posts);
 
     useEffect(() => {
+        dispatch(setCurrentFilter('hot'));
         dispatch(setCurrentSubreddit(prefixedSubreddit));
         dispatch(loadSubredditAbout(prefixedSubreddit));
         console.log('fetching about sub page');
-        dispatch(loadSubredditPosts(prefixedSubreddit));
+        
+        dispatch(loadPostsHot(prefixedSubreddit));
     }, [dispatch, prefixedSubreddit]);
-
-    if (isLoading) {
-        return (
-          <div>Loading...</div>
-        );
-    }
 
     return (
         <>
             <About />
-            <Filters />
-            {posts.map((post, index) => <Post key={index} data={post.data} type="subreddit-post" /> )}
+            <Filters type="subreddit" />
+            { isLoading 
+                ? <div>Loading...</div> : 
+                    posts.map((post, index) => <Post key={index} post={post} postIndex={index} /> )
+            }
         </>
     )
 }

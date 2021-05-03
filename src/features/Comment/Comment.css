@@ -9,6 +9,14 @@
     margin-bottom: var(--spacing2);
 }
 
+.comment-contents {
+    width: 100%;
+}
+
+.comment-author {
+    font-weight: 700;
+}
+
 .comment-avatar {
     width: 26px;
     height: 26px;

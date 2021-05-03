@@ -56,7 +56,10 @@ function timeToTimeAgo(ts) {
       return "Half an hour ago";
    }
    if (seconds > 60) {
-      return Math.floor(seconds/60) + " minutes ago";
+      return Math.floor(seconds/60) + "m ago";
+   }
+   if (seconds <= 60) {
+      return "just now";
    }
 }
 

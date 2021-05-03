@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Filters.css';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilters, setCurrentFilter } from './filtersSlice';
+import { selectFilters, setCurrentFilter, selectCurrentFilter } from './filtersSlice';
+import { loadPostsHot, loadPostsNew, loadPostsTop, } from '../../app/appSlice';
+import { selectCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
 import capitalizeFirstLetter from '../../utils/capitaliseFirstLetter';
 import { AiFillFire } from "react-icons/ai";
 import { GiNewBorn } from "react-icons/gi";
 import { FaChartLine } from "react-icons/fa";
 
-const Filters = () => {
+const Filters = ( {type} ) => {
     const filters = useSelector(selectFilters);
+    const currentFilter = useSelector(selectCurrentFilter);
+    const currentSubreddit = useSelector(selectCurrentSubreddit);
     const dispatch = useDispatch();
-
+    
     const icons = {
         hot: <AiFillFire />,
         new: <GiNewBorn />,
@@ -22,13 +26,31 @@ const Filters = () => {
     const onClickHandler = (event, filter) => {
         event.preventDefault();
         dispatch(setCurrentFilter(filter));
+        switch (filter) {
+            case 'hot':
+                console.log(filter);
+                console.log(currentSubreddit);
+                dispatch(loadPostsHot(currentSubreddit));
+                break;
+            case 'new':
+                console.log(filter);
+                dispatch(loadPostsNew(currentSubreddit));
+                break;
+            case 'top':
+                console.log(filter);
+                dispatch(loadPostsTop(currentSubreddit));
+                break;
+            default:
+                // code block
+        }
     }
 
     const createFilterLink = (filter) => {
         return (
             <li key={filter}>
                 <Link 
-                    className="nav-link"
+                    // className="nav-link"
+                    className={currentFilter === filter ? "nav-link selected" : "nav-link"}
                     to="#"
                     onClick={(event) => {onClickHandler(event, filter)}}
                 >

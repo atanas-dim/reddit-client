@@ -1,25 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Comment.css';
+import ReactMarkdown from 'react-markdown';
+import timeToTimeAgo from '../../utils/timeToTimeAgo';
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { fetchUserAvatar } from '../../api/reddit-api';
 
-const Comment = () => {
 
+const Comment = ({comment}) => {
+    // console.log(comment);
+    const [userIcon, setUserIcon] = useState('');
+
+    useEffect(() => {
+        try {
+            fetchUserAvatar(comment.author).then(response => {
+                if (response !== undefined) {
+                    setUserIcon(response.snoovatar_img);
+                }
+            });
+        } catch (error) {
+            console.log(error)
+        }
+        
+        return () => setUserIcon('');
+    }, [comment])
+
+    const createAvatar = (url) => {
+        if ( url ) {
+            return <img src={url} alt="avatar" className="comment-avatar" />
+        } else {
+            return <IoPersonCircleOutline className="comment-avatar" />
+        }
+    }
 
     return (
         <div className="comment">
             <div className="avatar-container">
-                <IoPersonCircleOutline className="comment-avatar" />
+                {/* <IoPersonCircleOutline className="comment-avatar" /> */}
+                {createAvatar(userIcon)}
             </div>
             <div className="comment-contents">
                 <div className="comment-details">
-                    <span className="username">profilename</span>
-                    <span className="date">1h ago</span>
+                    <span className="username comment-author">{comment.author}</span>
+                    <span className="date">{timeToTimeAgo(comment.created_utc)}</span>
                 </div>
 
                 <div className="comment-text">
-                    <p>The quick, brown fox jumps over a lazy dog. 
-                        DJs flock by when MTV ax quiz prog. 
-                        Junk MTV quiz graced by fox whelps.</p>
+                    
+                    <ReactMarkdown children={comment.body} />
+                    
                 </div>
             </div>
             

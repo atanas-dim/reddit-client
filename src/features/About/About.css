@@ -4,7 +4,7 @@
 
 .about-banner-container {
     border-bottom: solid 1px var(--color-outline);
-    min-height: 185px;
+    height: 185px;
 }
 
 .about-banner {
@@ -24,6 +24,7 @@
 }
 
 .subreddit-avatar.main {
+    color: var(--color-details);
     width: 48px;
     height: 48px;
     margin: 0 var(--spacing1) 0 0;

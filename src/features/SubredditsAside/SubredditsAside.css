@@ -53,6 +53,7 @@
 }
 
 .subreddit-link > :first-child {
+    color: var(--color-details);
     margin-right: var(--spacing0);
     width: 32px;
     height: 32px;

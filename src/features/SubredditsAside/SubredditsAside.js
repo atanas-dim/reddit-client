@@ -36,7 +36,6 @@ const SubredditsAside = () => {
 
         return (
             <Link to={`/${subredditName}`}  
-                //   onClick={(e) => onClickHandler(e,subredditName)} 
                   className={currentSubreddit === subredditName ? "subreddit-link selected" : "subreddit-link"}
                 >
                 { subredditIcon ? <img src={subredditIcon} alt="subreddit avatar" /> : <IoLogoReddit /> }
@@ -53,7 +52,7 @@ const SubredditsAside = () => {
                     <ul id="categories-container">
                         <li id="home-link-container" >
                             <Link to="/" 
-                                  className={currentSubreddit === '/' ? "nav-link selected" : "nav-link"}
+                                  className={currentSubreddit === '' ? "nav-link selected" : "nav-link"}
                             >
                                 {icons.home}Home
                             </Link>
@@ -61,7 +60,7 @@ const SubredditsAside = () => {
                         <li id="subreddits-link-container">
                             <Link to="#" 
                                   onClick={() => toggleSubreddits()} 
-                                  className={(currentSubreddit !== '/' && isOpen) ? "nav-link selected" : "nav-link"} 
+                                  className={(currentSubreddit !== '' && isOpen) ? "nav-link selected" : "nav-link"} 
                             >
                                 {icons.subreddits}Subreddits
                             </Link>

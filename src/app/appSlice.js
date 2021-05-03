@@ -1,17 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchHomePosts, fetchSubredditPosts, fetchSubredditAbout } from '../api/reddit-api';
+import { fetchPostsHot, fetchPostsNew, fetchPostsTop, fetchSubredditAbout, fetchComments } from '../api/reddit-api';
 
-export const loadHomePosts = createAsyncThunk(
-    "app/loadHomePosts",
-    async () => {
-        return await fetchHomePosts();
+export const loadPostsHot = createAsyncThunk(
+    "app/loadSubredditPostsHot",
+    async (subreddit) => {
+        return await fetchPostsHot(subreddit);
     }
 );
 
-export const loadSubredditPosts = createAsyncThunk(
-    "app/loadSubredditPosts",
+export const loadPostsNew = createAsyncThunk(
+    "app/loadSubredditPostsNew",
     async (subreddit) => {
-        return await fetchSubredditPosts(subreddit);
+        return await fetchPostsNew(subreddit);
+    }
+);
+
+export const loadPostsTop = createAsyncThunk(
+    "app/loadSubredditPostsTop",
+    async (subreddit) => {
+        return await fetchPostsTop(subreddit);
     }
 );
 
@@ -22,6 +29,14 @@ export const loadSubredditAbout = createAsyncThunk(
     }
 );
 
+export const loadComments = createAsyncThunk(
+    "app/loadComments",
+    async ( {index, permalink} ) => {
+        const comments =  await fetchComments(permalink);
+        return {index: index, comments: comments}
+    }
+);
+
 export const appSlice = createSlice({
     name: 'app',
     initialState: {
@@ -29,40 +44,81 @@ export const appSlice = createSlice({
         about: [],
         isLoading: false,
     },
+    reducers: {
+        setShowingComments: (state, action) => {
+            console.log(action);
+            state.posts[action.payload.index].showingComments = !action.payload.showingComments
+        },
+    },
     extraReducers: {
-        [loadHomePosts.pending]: (state, action) => {
-            console.log('pending');
-            state.isLoading = true;
-            console.log(state.isLoading);
-        },
-        [loadHomePosts.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            state.posts = action.payload;
-            state.isLoading = false;
-            console.log(state.isLoading);
-        },
-        [loadHomePosts.rejected]: (state, action) => {
-            console.log('rejected')
-            state.isLoading = false;
-        },
-        [loadSubredditPosts.pending]: (state, action) => {
+        // LOAD HOT POSTS
+        [loadPostsHot.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
             console.log(state.isLoading);
         },
-        [loadSubredditPosts.fulfilled]: (state, action) => {
+        [loadPostsHot.fulfilled]: (state, action) => {
             console.log('fulfilled')
             state.posts = action.payload;
+            state.posts.map(post => {
+                post.showingComments = false;
+                post.comments = [];
+                return post;
+            })
+            // console.log(state.posts);
             state.isLoading = false;
         },
-        [loadSubredditPosts.rejected]: (state, action) => {
+        [loadPostsHot.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
         },
+
+        // LOAD NEW POSTS
+        [loadPostsNew.pending]: (state, action) => {
+            console.log('pending')
+            state.isLoading = true;
+            console.log(state.isLoading);
+        },
+        [loadPostsNew.fulfilled]: (state, action) => {
+            console.log('fulfilled')
+            state.posts = action.payload;
+            state.posts.map(post => {
+                post.showingComments = false;
+                post.comments = [];
+                return post;
+            })
+            state.isLoading = false;
+        },
+        [loadPostsNew.rejected]: (state, action) => {
+            console.log('rejected')
+            state.isLoading = false;
+        },
+
+        // LOAD TOP POSTS
+        [loadPostsTop.pending]: (state, action) => {
+            console.log('pending')
+            state.isLoading = true;
+            console.log(state.isLoading);
+        },
+        [loadPostsTop.fulfilled]: (state, action) => {
+            console.log('fulfilled')
+            state.posts = action.payload;
+            state.posts.map(post => {
+                post.showingComments = false;
+                post.comments = [];
+                return post;
+            })
+            state.isLoading = false;
+        },
+        [loadPostsTop.rejected]: (state, action) => {
+            console.log('rejected')
+            state.isLoading = false;
+        },
+
+        //SUBREDDIT ABOUT
         [loadSubredditAbout.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
-            console.log(state.isLoading);
         },
         [loadSubredditAbout.fulfilled]: (state, action) => {
             console.log('fulfilled');
@@ -73,10 +129,27 @@ export const appSlice = createSlice({
             console.log('rejected')
             state.isLoading = false;
         },
+
+        // LOAD COMMENTS
+        [loadComments.pending]: (state, action) => {
+            //Don't fetch if it's already showing comments
+            if(state.posts[action.meta.arg.index].showingComments === true) {
+                return;
+            }
+            console.log('pending')
+        },
+        [loadComments.fulfilled]: (state, action) => {
+            console.log('fulfilled');
+            state.posts[action.payload.index].comments = action.payload.comments;
+        },
+        [loadComments.rejected]: (state, action) => {
+            console.log('rejected')
+        },
     }
 })
 
 export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
 export const selectIsLoading = state => state.app.isLoading;
+export const { setShowingComments } = appSlice.actions;
 export default appSlice.reducer;
