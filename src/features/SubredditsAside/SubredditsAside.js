@@ -25,7 +25,7 @@ const SubredditsAside = () => {
     }
  
     useEffect(() => {
-        dispatch(setIsOpen(window.innerWidth >= 768));
+        // dispatch(setIsOpen(window.innerWidth >= 768));
         dispatch(loadSubredditNames());
     }, [dispatch]);
     //to rework closes here

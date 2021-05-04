@@ -50,7 +50,7 @@ aside {
   }
 
   header {
-    grid-template-columns: 1fr minmax(140px, 100%) 60px 1fr;
+    grid-template-columns: 1fr minmax(140px, 100%) 1fr 1fr;
     grid-gap: var(--spacing2);
   }
 
