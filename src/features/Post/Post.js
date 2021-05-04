@@ -7,7 +7,7 @@ import { FaComments } from "react-icons/fa";
 import timeToTimeAgo from '../../utils/timeToTimeAgo';
 import { IoLogoReddit } from "react-icons/io5";
 import { fetchSubredditAbout } from '../../api/reddit-api';
-import { selectIsLoading, loadComments, setShowingComments } from '../../app/appSlice';
+import { selectIsLoading, loadComments, setShowingComments, setCommentsNum } from '../../app/appSlice';
 
 const Post = (props) => {
     const { post, postIndex } = props;
@@ -15,8 +15,7 @@ const Post = (props) => {
     const [subredditIcon, setSubredditIcon] = useState('');
     const isLoading = useSelector(selectIsLoading);
     const comments = post.comments.slice(0, post.comments.length - 1);
-
-    console.log(comments);
+    const commentsNum = post.commentsNum;
     
     useEffect(() => {
         if (!isLoading) {
@@ -34,10 +33,14 @@ const Post = (props) => {
         }
     }
 
-    const createComments = () => {
+    const handleShowMore = (number) => {
+        dispatch(setCommentsNum({index: postIndex, commentsNum: number}));
+    }
+
+    const createComments = (number) => {
         return (
             <>
-                {comments.map((comment, index) => <Comment key={index} comment={comment} />)}
+                {comments.slice(0, number).map((comment, index) => <Comment key={index} comment={comment} />)}
             </>
         )
     }
@@ -77,11 +80,16 @@ const Post = (props) => {
                         onClick={() => handleLoadComments()}
                     >
                         <FaComments />
-                        {/* {post.showingComments ? 'Hide top comments' : 'See top comments'} */}
                         {post.data.num_comments} comments
                     </button>
-                    {(comments && post.showingComments ) && createComments()}
-                    
+                    {(comments && post.showingComments ) && createComments(commentsNum)}
+                    {(comments.length > 3 && post.showingComments ) && <button className="show-more-btn" 
+                                                                               onClick={() => {
+                                                                                    handleShowMore(commentsNum + 3);
+                                                                               }} 
+                                                                        >
+                                                                                Show more comments
+                                                                            </button> }
                 </div>
                 
         </Card>

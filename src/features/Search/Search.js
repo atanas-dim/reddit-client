@@ -1,7 +1,9 @@
 import React from 'react';
 import './Search.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { loadSearchResults } from '../../app/appSlice';
 import { selectSearchTerm, setSearchTerm, clearSearchTerm } from './searchSlice';
+// import { setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
@@ -18,6 +20,13 @@ const Search = () => {
         dispatch(clearSearchTerm());
     }
 
+    const onKeyDownHandler = (e) => {
+        if (e.keyCode === 13) {
+            window.location.href = `/search/${searchTerm}`;
+            dispatch(setSearchTerm(''));
+        }
+    }
+
     return (
         <div className="search-container">
             <BiSearch className="search-icon" />
@@ -27,6 +36,7 @@ const Search = () => {
                 type="text"
                 value={searchTerm}
                 onChange={onSearchTermChangeHandler}
+                onKeyDown={onKeyDownHandler}
                 placeholder="Search reddits" 
                 aria-label="Search reddits" 
             />

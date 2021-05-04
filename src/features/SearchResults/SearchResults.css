@@ -1,0 +1,8 @@
+.search-heading {
+    color: var(--color-highlight);
+    margin: var(--spacing1) var(--spacing2) var(--spacing2);
+}
+
+.search-heading h2 {
+    margin: 0;
+}

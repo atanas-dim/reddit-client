@@ -5,6 +5,7 @@ import './App.css';
 import Header from '../features/Header/Header';
 import Home from '../features/Home/Home';
 import Subreddit from '../features/Subreddit/Subreddit';
+import SearchResults from '../features/SearchResults/SearchResults';
 import SubredditsAside from '../features/SubredditsAside/SubredditsAside';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../features/Theme/themeSlice';
@@ -22,6 +23,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home}/>
             <Route path="/r/:id" component={Subreddit} />
+            <Route path="/search/:id" component={SearchResults} />
           </Switch>
         </main>
         <aside>

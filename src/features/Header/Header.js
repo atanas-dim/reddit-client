@@ -1,8 +1,10 @@
 import React from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 import ThemeSwitch from '../Theme/ThemeSwitch';
 import Search from '../Search/Search';
 import { FaReddit } from 'react-icons/fa';
+import { AiFillGithub } from 'react-icons/ai';
 
 const Header = () => {
 
@@ -18,7 +20,11 @@ const Header = () => {
             </div>
             <div id="theme-switch">
                 <ThemeSwitch />
+                <a href="https://github.com/atanas-dim/reddit-client" target="_blank" className="github-link">
+                    <AiFillGithub />
+                </a>
             </div>
+            
             
         </header>
     )

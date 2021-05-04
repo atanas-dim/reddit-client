@@ -55,6 +55,17 @@ export const fetchPostsTop = async (subreddit) => {
     return jsonResponse.data.children;
 }
 
+// FETCH SEARCH RESULTS
+export const fetchSearchResults = async (searchTerm) => {
+    const endpoint = `${url}/search.json?q=${searchTerm}`;
+    
+    const response = await fetch(endpoint);
+    const jsonResponse = await response.json();
+    console.log('fetching')
+    console.log(jsonResponse);
+    return jsonResponse.data.children;
+}
+
 //SUBREDDIT INFO FOR ABOUT CARD
 export const fetchSubredditAbout = async (subreddit) => {
     const endpoint = `${url}/${subreddit}/about.json`;

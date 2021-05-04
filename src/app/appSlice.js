@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchPostsHot, fetchPostsNew, fetchPostsTop, fetchSubredditAbout, fetchComments } from '../api/reddit-api';
+import { fetchPostsHot, fetchPostsNew, fetchPostsTop, fetchSubredditAbout, fetchComments, fetchSearchResults } from '../api/reddit-api';
 
 export const loadPostsHot = createAsyncThunk(
     "app/loadSubredditPostsHot",
@@ -19,6 +19,13 @@ export const loadPostsTop = createAsyncThunk(
     "app/loadSubredditPostsTop",
     async (subreddit) => {
         return await fetchPostsTop(subreddit);
+    }
+);
+
+export const loadSearchResults = createAsyncThunk(
+    "app/loadSearchResults",
+    async (searchTerm) => {
+        return await fetchSearchResults(searchTerm);
     }
 );
 
@@ -49,6 +56,10 @@ export const appSlice = createSlice({
             console.log(action);
             state.posts[action.payload.index].showingComments = !action.payload.showingComments
         },
+        setCommentsNum: (state, action) => {
+            console.log(action);
+            state.posts[action.payload.index].commentsNum = action.payload.commentsNum;
+        },
     },
     extraReducers: {
         // LOAD HOT POSTS
@@ -63,6 +74,7 @@ export const appSlice = createSlice({
             state.posts.map(post => {
                 post.showingComments = false;
                 post.comments = [];
+                post.commentsNum = 3;
                 return post;
             })
             // console.log(state.posts);
@@ -85,6 +97,7 @@ export const appSlice = createSlice({
             state.posts.map(post => {
                 post.showingComments = false;
                 post.comments = [];
+                post.commentsNum = 3;
                 return post;
             })
             state.isLoading = false;
@@ -106,11 +119,34 @@ export const appSlice = createSlice({
             state.posts.map(post => {
                 post.showingComments = false;
                 post.comments = [];
+                post.commentsNum = 3;
                 return post;
             })
             state.isLoading = false;
         },
         [loadPostsTop.rejected]: (state, action) => {
+            console.log('rejected')
+            state.isLoading = false;
+        },
+
+        // LOAD SEARCH RESULTS
+        [loadSearchResults.pending]: (state, action) => {
+            console.log('pending')
+            state.isLoading = true;
+            console.log(state.isLoading);
+        },
+        [loadSearchResults.fulfilled]: (state, action) => {
+            console.log('fulfilled')
+            state.posts = action.payload;
+            state.posts.map(post => {
+                post.showingComments = false;
+                post.comments = [];
+                post.commentsNum = 3;
+                return post;
+            })
+            state.isLoading = false;
+        },
+        [loadSearchResults.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
         },
@@ -151,5 +187,5 @@ export const appSlice = createSlice({
 export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
 export const selectIsLoading = state => state.app.isLoading;
-export const { setShowingComments } = appSlice.actions;
+export const { setShowingComments, setCommentsNum } = appSlice.actions;
 export default appSlice.reducer;

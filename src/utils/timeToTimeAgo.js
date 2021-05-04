@@ -52,9 +52,9 @@ function timeToTimeAgo(ts) {
    if (seconds > 3600) {
       return "1h ago";
    }
-   if (seconds > 1800) {
-      return "Half an hour ago";
-   }
+   // if (seconds > 1800) {
+   //    return Math.floor(seconds/360) + "m ago";
+   // }
    if (seconds > 60) {
       return Math.floor(seconds/60) + "m ago";
    }

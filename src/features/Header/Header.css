@@ -38,6 +38,17 @@ header {
     margin-right: var(--spacing1);
 }
 
+.github-link {
+    color: var(--color-highlight);
+    margin-left: var(--spacing2);
+    width: 32px;
+    height: 32px;
+}
+.github-link > :first-child {
+    width: 32px;
+    height: 32px;
+}
+
 @media only screen and (max-width: 768px) {
     .logo-container {
         margin-right: var(--spacing2);

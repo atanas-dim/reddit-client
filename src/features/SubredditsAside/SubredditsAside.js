@@ -60,7 +60,7 @@ const SubredditsAside = () => {
                         <li id="subreddits-link-container">
                             <Link to="#" 
                                   onClick={() => toggleSubreddits()} 
-                                  className={(currentSubreddit !== '' && isOpen) ? "nav-link selected" : "nav-link"} 
+                                  className={(currentSubreddit !== '' && currentSubreddit !== 'searchresults' && isOpen) ? "nav-link selected" : "nav-link"} 
                             >
                                 {icons.subreddits}Subreddits
                             </Link>
