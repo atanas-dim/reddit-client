@@ -12,10 +12,14 @@ const Header = () => {
     return (
         <header>
             <div id="header-main-half">
-                <div className="logo-container">
-                    <FaReddit className="logo" />
-                    <h1>Reddit</h1>
-                </div>
+                <a href="/" >
+                    <div className="logo-container">
+                        
+                            <FaReddit className="logo" />
+                            <h1>Reddit</h1>
+                        
+                    </div>
+                </a>
                 <Search className="search-component" />
             </div>
             <div id="theme-switch">

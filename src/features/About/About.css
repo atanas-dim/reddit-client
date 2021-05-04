@@ -4,12 +4,14 @@
 
 .about-banner-container {
     border-bottom: solid 1px var(--color-outline);
-    height: 185px;
+    min-height: 60px;
+    max-height: 200px;
+    overflow: hidden;
 }
 
 .about-banner {
     width: 100%;
-    height: auto;
+    height: auto;  
 }
 
 .subreddit-info {

@@ -10,14 +10,14 @@ const SearchResults = ({match}) => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts); 
     const isLoading = useSelector(selectIsLoading);
-    const currentSubreddit = match.params.id;
+    
 
     useEffect(() => {
         dispatch(setCurrentFilter('hot'));
         dispatch(setCurrentSubreddit('searchresults'));
         dispatch(loadSearchResults(match.params.id));
         console.log('fetching search results posts');
-    }, [dispatch, currentSubreddit]);
+    }, [dispatch, match.params.id]);
 
     return (
         <> 
