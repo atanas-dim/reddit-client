@@ -25,6 +25,7 @@ const PostLoading = () => {
                         <Skeleton height={14} width={100} duration={2}/>
                     </div>
             </SkeletonTheme>
+            
          </div>
     )
 }
