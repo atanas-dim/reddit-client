@@ -35,7 +35,6 @@ const Comment = ({comment}) => {
     return (
         <div className="comment">
             <div className="avatar-container">
-                {/* <IoPersonCircleOutline className="comment-avatar" /> */}
                 {createAvatar(userIcon)}
             </div>
             <div className="comment-contents">

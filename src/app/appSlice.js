@@ -54,11 +54,15 @@ export const appSlice = createSlice({
     reducers: {
         setShowingComments: (state, action) => {
             console.log(action);
-            state.posts[action.payload.index].showingComments = !action.payload.showingComments
+            state.posts[action.payload.index].showingComments = action.payload.showingComments
         },
         setCommentsNum: (state, action) => {
             console.log(action);
             state.posts[action.payload.index].commentsNum = action.payload.commentsNum;
+        },
+        setIsLoadingComments: (state, action) => {
+            console.log(action);
+            state.posts[action.payload.index].isLoadingComments = action.payload.isLoadingComments;
         },
     },
     extraReducers: {
@@ -75,6 +79,7 @@ export const appSlice = createSlice({
                 post.showingComments = false;
                 post.comments = [];
                 post.commentsNum = 3;
+                post.isLoadingComments = false;
                 return post;
             })
             // console.log(state.posts);
@@ -98,6 +103,7 @@ export const appSlice = createSlice({
                 post.showingComments = false;
                 post.comments = [];
                 post.commentsNum = 3;
+                post.isLoadingComments = false;
                 return post;
             })
             state.isLoading = false;
@@ -120,6 +126,7 @@ export const appSlice = createSlice({
                 post.showingComments = false;
                 post.comments = [];
                 post.commentsNum = 3;
+                post.isLoadingComments = false;
                 return post;
             })
             state.isLoading = false;
@@ -169,17 +176,23 @@ export const appSlice = createSlice({
         // LOAD COMMENTS
         [loadComments.pending]: (state, action) => {
             //Don't fetch if it's already showing comments
-            if(state.posts[action.meta.arg.index].showingComments === true) {
-                return;
-            }
+            // if(state.posts[action.meta.arg.index].showingComments === true) {
+            //     return;
+            // }
             console.log('pending')
+            state.posts[action.meta.arg.index].comments = [];
+            state.posts[action.meta.arg.index].isLoadingComments = true;
+
+            console.log(state.posts[action.meta.arg.index].isLoadingComments);
         },
         [loadComments.fulfilled]: (state, action) => {
             console.log('fulfilled');
             state.posts[action.payload.index].comments = action.payload.comments;
+            state.posts[action.meta.arg.index].isLoadingComments = false;
         },
         [loadComments.rejected]: (state, action) => {
             console.log('rejected')
+            state.posts[action.meta.arg.index].isLoadingComments = false;
         },
     }
 })
@@ -187,5 +200,5 @@ export const appSlice = createSlice({
 export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
 export const selectIsLoading = state => state.app.isLoading;
-export const { setShowingComments, setCommentsNum } = appSlice.actions;
+export const { setShowingComments, setCommentsNum, setIsLoadingComments } = appSlice.actions;
 export default appSlice.reducer;

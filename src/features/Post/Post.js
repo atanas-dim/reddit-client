@@ -7,7 +7,9 @@ import { FaComments } from "react-icons/fa";
 import timeToTimeAgo from '../../utils/timeToTimeAgo';
 import { IoLogoReddit } from "react-icons/io5";
 import { fetchSubredditAbout } from '../../api/reddit-api';
-import { selectIsLoading, loadComments, setShowingComments, setCommentsNum } from '../../app/appSlice';
+import { selectIsLoading, loadComments, setShowingComments, setCommentsNum, setIsLoadingComments } from '../../app/appSlice';
+import CommentLoading from '../Comment/CommentLoading';
+import { AnimatedList } from 'react-animated-list';
 
 const Post = (props) => {
     const { post, postIndex } = props;
@@ -16,18 +18,21 @@ const Post = (props) => {
     const isLoading = useSelector(selectIsLoading);
     const comments = post.comments.slice(0, post.comments.length - 1);
     const commentsNum = post.commentsNum;
+
+    // console.log(post.isLoadingComments);
     
     useEffect(() => {
+        checkCommentsDisplayed();
         if (!isLoading) {
             fetchSubredditAbout(post.data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
             });
         }
         return () => setSubredditIcon('');
-    }, [post.data.subreddit_name_prefixed, isLoading])
+    }, [post.data.subreddit_name_prefixed, isLoading, commentsNum])
 
     const handleLoadComments = () => {
-        dispatch(setShowingComments({index: postIndex, showingComments: post.showingComments}));
+        dispatch(setShowingComments({index: postIndex, showingComments: !post.showingComments}));
         if (!post.showingComments) {
             dispatch(loadComments( {index: postIndex, permalink: post.data.permalink, showingComments: post.showingComments} ));
         }
@@ -53,8 +58,26 @@ const Post = (props) => {
         }
     }
 
+    const checkCommentsDisplayed = () => {
+        const container = document.getElementById(`comments-container${postIndex}`);
+        // console.log(container.children.length + 3);
+        // console.log(comments.length)
+        if (container.children) {
+
+            if ((container.children.length + 3) >= (comments.length)) {
+                console.log(true);
+                return true;
+            } else {
+                console.log(false);
+                return false
+            }
+
+        }
+        
+    }
+
     return (
-        <Card className="post">
+        <Card className="post" >
             
                 <div className="post-details">
                     <span className="author-profile">
@@ -74,7 +97,7 @@ const Post = (props) => {
                         <img src={post.data.url_overridden_by_dest} alt="media" ></img>   
                     </div>
                 }
-                <div className="comments-container">
+                <div className="comments-container" id={`comments-container${postIndex}`} >
                     <button 
                         className="comments-btn"
                         onClick={() => handleLoadComments()}
@@ -82,14 +105,14 @@ const Post = (props) => {
                         <FaComments />
                         {post.data.num_comments} comments
                     </button>
-                    {(comments && post.showingComments ) && createComments(commentsNum)}
-                    {(comments.length > 3 && post.showingComments ) && <button className="show-more-btn" 
-                                                                               onClick={() => {
-                                                                                    handleShowMore(commentsNum + 3);
-                                                                               }} 
+                    {post.isLoadingComments && <AnimatedList><CommentLoading/><CommentLoading/><CommentLoading/></AnimatedList> }
+                    {(comments && post.showingComments) && createComments(commentsNum)}
+                    {(comments.length > 3 && post.showingComments && checkCommentsDisplayed() === false) && 
+                                                                        <button className="show-more-btn" 
+                                                                                onClick={() => handleShowMore(commentsNum + 3)} 
                                                                         >
-                                                                                Show more comments
-                                                                            </button> }
+                                                                            Show more comments
+                                                                        </button> }
                 </div>
                 
         </Card>

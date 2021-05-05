@@ -39,6 +39,8 @@
 .subreddit-users {
     font-size: var(--font-size4);
     color: var(--color-details);
+    display: flex;
+    flex-direction: row;
 }
 
 .subreddit-users span {
@@ -56,3 +58,8 @@
     margin: 0 0 var(--spacing1) 0;
 }
 
+@media only screen and (max-width: 768px) { 
+    .subreddit-users {
+        flex-direction: column;
+    }
+}

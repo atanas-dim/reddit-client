@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import About from '../About/About';
 import Filters from '../Filters/Filters';
 import Post from '../Post/Post';
+import PostLoading from '../Post/PostLoading';
+import { AnimatedList } from 'react-animated-list';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPostsHot ,selectPosts, selectIsLoading } from '../../app/appSlice';
 import { loadSubredditAbout } from '../../app/appSlice';
@@ -14,8 +16,6 @@ const Subreddit = ({match}) => {
     const isLoading = useSelector(selectIsLoading);
     const currentSubreddit = match.params.id;
     const prefixedSubreddit = "r/" + currentSubreddit;
-    // console.log(posts.map(post => post.data.permalink));
-    // console.log(posts);
 
     useEffect(() => {
         dispatch(setCurrentFilter('hot'));
@@ -31,8 +31,9 @@ const Subreddit = ({match}) => {
             <About />
             <Filters type="subreddit" />
             { isLoading 
-                ? <div>Loading...</div> : 
-                    posts.map((post, index) => <Post key={index} post={post} postIndex={index} /> )
+                ? <AnimatedList><PostLoading/><PostLoading/><PostLoading/></AnimatedList>
+                
+                : posts.map((post, index) => <Post key={index} post={post} postIndex={index} /> )
             }
         </>
     )

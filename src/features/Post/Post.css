@@ -89,7 +89,6 @@
 }
 
 .comments-container {
-    /* padding: 0 var(--spacing2); */
     border-top: solid 1px var(--color-outline);
 }
 
@@ -126,6 +125,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+    /* .author-profile {
+        align-items: flex-start;
+    } */
+
     .profile-names {
         flex-direction: column;
         align-items: flex-start;
