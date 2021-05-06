@@ -1,7 +1,12 @@
+.search-outer-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+}
+
 .search-container {
     position: relative;
     width: 100%;
-    max-width: 480px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +15,7 @@
 #search {
     height: 32px;
     width: 100%;
-    padding: 0 var(--spacing3);
+    padding: 0 var(--spacing2);
     background: var(--color-bg);
     border: solid 1px var(--color-outline);
     border-radius: var(--radius4);
@@ -20,12 +25,6 @@
 #search:focus {
     outline: none;
     box-shadow: 0px 0px 4px var(--color-highlight);
-}
-
-.search-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .clear-search-button {
@@ -57,6 +56,16 @@
 .clear-search-icon,
 #search::placeholder {
     color: var(--color-details);
+}
+
+.search-btn {
+    color: var(--color-highlight);
+    width: 32px;
+    height: 32px;
+    margin-left: var(--spacing1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 768px) {

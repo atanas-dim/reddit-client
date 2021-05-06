@@ -1,6 +1,7 @@
 import React from 'react';
 import './Search.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectSearchTerm, setSearchTerm, clearSearchTerm } from './searchSlice';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -20,34 +21,39 @@ const Search = () => {
 
     const onKeyDownHandler = (e) => {
         if (e.keyCode === 13) {
-            window.location.href = `/search/${searchTerm}`;
+            document.getElementById('search-btn').click();
             dispatch(setSearchTerm(''));
         }
     }
 
     return (
-        <div className="search-container">
-            <BiSearch className="search-icon" />
-            <input 
-                autoComplete="off"
-                id="search"
-                type="text"
-                value={searchTerm}
-                onChange={onSearchTermChangeHandler}
-                onKeyDown={onKeyDownHandler}
-                placeholder="Search reddits" 
-                aria-label="Search reddits" 
-            />
-            { searchTerm.length > 0 && (
-                <button 
-                    type="button"
-                    onClick={onClearSearchTermHandler}
-                    aria-label="Clear search button" 
-                    className="clear-search-button" 
-                >
-                    <AiOutlineCloseCircle className="clear-search-icon" />
-                </button>
-            )}
+        <div className="search-outer-container">
+            <div className="search-container">
+                <input 
+                    autoComplete="off"
+                    id="search"
+                    type="text"
+                    value={searchTerm}
+                    onChange={onSearchTermChangeHandler}
+                    onKeyDown={onKeyDownHandler}
+                    placeholder="Search reddits" 
+                    aria-label="Search reddits" 
+                />
+                { searchTerm.length > 0 && (
+                    <button 
+                        type="button"
+                        onClick={onClearSearchTermHandler}
+                        aria-label="Clear search button" 
+                        className="clear-search-button" 
+                    >
+                        <AiOutlineCloseCircle className="clear-search-icon" />
+                    </button>
+                )}
+                
+            </div>
+            <Link to={`/search/${searchTerm}`} id="search-btn">
+                <BiSearch className="search-btn" />
+            </Link>
         </div>
     )
 }
