@@ -1,6 +1,5 @@
 import React from 'react';
 import './CommentLoading.css';
-import { AnimatedList } from 'react-animated-list';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const CommentLoading = () => {
@@ -25,9 +24,6 @@ const CommentLoading = () => {
                         <Skeleton height={18} width={200} duration={1.75}/>
                     </div>
                 </div>
-                    {/* <div className="skeleton-comments-container" >
-                        <Skeleton height={14} width={100} duration={2}/>
-                    </div> */}
             </SkeletonTheme>
          </div>
     )

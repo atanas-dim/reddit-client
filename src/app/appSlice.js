@@ -175,10 +175,6 @@ export const appSlice = createSlice({
 
         // LOAD COMMENTS
         [loadComments.pending]: (state, action) => {
-            //Don't fetch if it's already showing comments
-            // if(state.posts[action.meta.arg.index].showingComments === true) {
-            //     return;
-            // }
             console.log('pending')
             state.posts[action.meta.arg.index].comments = [];
             state.posts[action.meta.arg.index].isLoadingComments = true;

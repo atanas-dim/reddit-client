@@ -49,7 +49,6 @@ const Filters = ( {type} ) => {
         return (
             <li key={filter}>
                 <Link 
-                    // className="nav-link"
                     className={currentFilter === filter ? "nav-link selected" : "nav-link"}
                     to="#"
                     onClick={(event) => {onClickHandler(event, filter)}}

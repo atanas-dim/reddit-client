@@ -12,7 +12,6 @@ const Home = ({match}) => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts); 
     const isLoading = useSelector(selectIsLoading);
-    // const isLoading = true;
     const currentSubreddit = match.params.id;
 
     useEffect(() => {

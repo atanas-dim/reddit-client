@@ -7,7 +7,7 @@ import { FaComments } from "react-icons/fa";
 import timeToTimeAgo from '../../utils/timeToTimeAgo';
 import { IoLogoReddit } from "react-icons/io5";
 import { fetchSubredditAbout } from '../../api/reddit-api';
-import { selectIsLoading, loadComments, setShowingComments, setCommentsNum, setIsLoadingComments } from '../../app/appSlice';
+import { selectIsLoading, loadComments, setShowingComments, setCommentsNum } from '../../app/appSlice';
 import CommentLoading from '../Comment/CommentLoading';
 import { AnimatedList } from 'react-animated-list';
 
@@ -18,20 +18,23 @@ const Post = (props) => {
     const isLoading = useSelector(selectIsLoading);
     const comments = post.comments.slice(0, post.comments.length - 1);
     const commentsNum = post.commentsNum;
-
-    // console.log(post.isLoadingComments);
     
     useEffect(() => {
-        checkCommentsDisplayed();
+        
         if (!isLoading) {
             fetchSubredditAbout(post.data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
             });
         }
         return () => setSubredditIcon('');
-    }, [post.data.subreddit_name_prefixed, isLoading, commentsNum])
+    }, [post.data.subreddit_name_prefixed, isLoading])
+
+    useEffect(() => {
+        checkCommentsDisplayed();
+    }, [commentsNum, isLoading])
 
     const handleLoadComments = () => {
+        dispatch(setCommentsNum({index: postIndex, commentsNum: 3}));
         dispatch(setShowingComments({index: postIndex, showingComments: !post.showingComments}));
         if (!post.showingComments) {
             dispatch(loadComments( {index: postIndex, permalink: post.data.permalink, showingComments: post.showingComments} ));
@@ -60,10 +63,7 @@ const Post = (props) => {
 
     const checkCommentsDisplayed = () => {
         const container = document.getElementById(`comments-container${postIndex}`);
-        // console.log(container.children.length + 3);
-        // console.log(comments.length)
         if (container.children) {
-
             if ((container.children.length + 3) >= (comments.length)) {
                 console.log(true);
                 return true;
@@ -71,9 +71,7 @@ const Post = (props) => {
                 console.log(false);
                 return false
             }
-
-        }
-        
+        }  
     }
 
     return (

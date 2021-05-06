@@ -1,9 +1,7 @@
 import React from 'react';
 import './Search.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSearchResults } from '../../app/appSlice';
 import { selectSearchTerm, setSearchTerm, clearSearchTerm } from './searchSlice';
-// import { setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 

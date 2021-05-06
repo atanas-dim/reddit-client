@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import './SearchResults.css';
 import Post from '../Post/Post';
+import PostLoading from '../Post/PostLoading';
+import { AnimatedList } from 'react-animated-list';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSearchResults, selectPosts, selectIsLoading } from '../../app/appSlice';
 import { setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
@@ -25,8 +27,8 @@ const SearchResults = ({match}) => {
                     <h2>Search results for "{match.params.id}"</h2>
             </div>         
             { isLoading 
-                ? <div>Loading...</div> : 
-                    posts.map((post, index) => <Post key={index} post={post} postIndex={index} /> )
+                ? <AnimatedList><PostLoading/><PostLoading/><PostLoading/></AnimatedList>
+                : posts.map((post, index) => <Post key={index} post={post} postIndex={index} /> )
             }
         </>
     )
