@@ -61,6 +61,7 @@ const Post = (props) => {
         }
     }
 
+    // This checks if there will be more comments to display after click on 'Show more comments'. We use the returned value to show/hide this button.
     const checkCommentsDisplayed = () => {
         const container = document.getElementById(`comments-container${postIndex}`);
         if (container.children) {
