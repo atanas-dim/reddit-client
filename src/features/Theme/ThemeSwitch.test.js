@@ -1,14 +1,12 @@
 import React from 'react';
 import ThemeSwitch from './ThemeSwitch';
-import { shallow } from 'enzyme';
-
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../../app/store';
 
 test('changes the theme to dark on first click', async () => {
 
-    const wrapper = render(
+    const {findByRole} = render(
         <Provider store={store}>
           <ThemeSwitch />
         </Provider>
@@ -16,7 +14,7 @@ test('changes the theme to dark on first click', async () => {
 
     const initialState = store.getState();
     // console.log(initialState.theme.theme);
-    const slider = await wrapper.findByRole('button');
+    const slider = await findByRole('button');
 
     slider.dispatchEvent(new MouseEvent('click', {bubbles: true}));
 
@@ -27,13 +25,13 @@ test('changes the theme to dark on first click', async () => {
 
 test('changes the theme to light on second click', async () => {
 
-    const wrapper = render(
+    const {findByRole} = render(
         <Provider store={store}>
           <ThemeSwitch />
         </Provider>
     );
 
-    const slider = await wrapper.findByRole('button');
+    const slider = await findByRole('button');
 
     const firstState = store.getState();
     // console.log(firstState.theme.theme);

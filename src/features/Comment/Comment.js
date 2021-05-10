@@ -39,7 +39,7 @@ const Comment = ({comment}) => {
             </div>
             <div className="comment-contents">
                 <div className="comment-details">
-                    <span className="username comment-author">{comment.author}</span>
+                    <span className="username comment-author">{comment.author || 'username'}</span>
                     <span className="date">{timeToTimeAgo(comment.created_utc)}</span>
                 </div>
 
