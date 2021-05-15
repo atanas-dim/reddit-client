@@ -23,7 +23,7 @@ const Header = () => {
             </div>
             <div id="theme-switch">
                 <ThemeSwitch />
-                <a href="https://github.com/atanas-dim/reddit-client" target="_blank" className="github-link">
+                <a href="https://github.com/atanas-dim/reddit-client" className="github-link">
                     <AiFillGithub />
                 </a>
             </div>

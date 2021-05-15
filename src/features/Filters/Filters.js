@@ -41,7 +41,7 @@ const Filters = ( {type} ) => {
                 dispatch(loadPostsTop(currentSubreddit));
                 break;
             default:
-                // code block
+                return;
         }
     }
 
