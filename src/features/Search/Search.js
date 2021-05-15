@@ -20,7 +20,9 @@ const Search = () => {
     }
 
     const onKeyDownHandler = (e) => {
-        if (e.keyCode === 13) {
+        if (searchTerm.trim() === '') {
+            return;
+        } else if (e.keyCode === 13) {
             document.getElementById('search-btn').click();
             dispatch(setSearchTerm(''));
         }

@@ -6,8 +6,8 @@ const SliderSwitch = (props) => {
 
     return (
         <label className="switch" >
-            <input type="checkbox" onClick={onClick} role="button" />
-            <span className="slider" role="switch" ><div>{icon}</div></span>
+            <input type="checkbox" onClick={onClick} />
+            <span className="slider" ><div>{icon}</div></span>
         </label>
     )
 }
