@@ -2,11 +2,11 @@ import React from 'react';
 import './SliderSwitch.css';
 
 const SliderSwitch = (props) => {
-    const {onClick, icon} = props;
+    const {onClick, icon, id} = props;
 
     return (
-        <label className="switch" >
-            <input type="checkbox" onClick={onClick} />
+        <label for={id} className="switch" >
+            <input id={id} type="checkbox" onClick={onClick} />
             <span className="slider" ><div>{icon}</div></span>
         </label>
     )

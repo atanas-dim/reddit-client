@@ -15,7 +15,7 @@ const ThemeSwitch = () => {
     }
 
     return (
-        <SliderSwitch onClick={handleClick} icon={ theme === 'light' ? <BiSun /> : <BiMoon/> } />
+        <SliderSwitch onClick={handleClick} icon={ theme === 'light' ? <BiSun /> : <BiMoon/> } id="theme-switch-input" />
     )
 }
 
