@@ -23,8 +23,7 @@ const Search = () => {
         if (searchTerm.trim() === '') {
             return;
         } else if (e.keyCode === 13) {
-            // document.getElementById('search-btn').click();
-            window.location.replace(`/search/${searchTerm}`);
+            document.getElementById('search-btn').click();
             dispatch(setSearchTerm(''));
         }
     }
