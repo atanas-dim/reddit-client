@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Post.css';
 import Card from '../../components/Card/Card';
@@ -20,7 +20,6 @@ const Post = (props) => {
     const commentsNum = post.commentsNum;
     
     useEffect(() => {
-        
         if (!isLoading) {
             fetchSubredditAbout(post.data.subreddit_name_prefixed).then(response => {
                 setSubredditIcon(response.icon_img);
@@ -28,10 +27,6 @@ const Post = (props) => {
         }
         return () => setSubredditIcon('');
     }, [post.data.subreddit_name_prefixed, isLoading])
-
-    useEffect(() => {
-        checkCommentsDisplayed();
-    }, [commentsNum, isLoading])
 
     const handleLoadComments = () => {
         dispatch(setCommentsNum({index: postIndex, commentsNum: 3}));
@@ -62,18 +57,20 @@ const Post = (props) => {
     }
 
     // This checks if there will be more comments to display after click on 'Show more comments'. We use the returned value to show/hide this button.
-    const checkCommentsDisplayed = () => {
+    const checkCommentsDisplayed = useCallback(() => {
         const container = document.getElementById(`comments-container${postIndex}`);
         if (container.children) {
             if ((container.children.length + 3) >= (comments.length)) {
-                console.log(true);
                 return true;
             } else {
-                console.log(false);
                 return false
             }
         }  
-    }
+    }, [postIndex, comments.length])
+
+    useEffect(() => {
+        checkCommentsDisplayed();
+    }, [commentsNum, isLoading, checkCommentsDisplayed])
 
     return (
         <Card className="post" >

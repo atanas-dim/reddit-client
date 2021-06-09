@@ -5,8 +5,6 @@ export const fetchSubredditNames = async () => {
     const endpoint = `${url}/subreddits.json`;
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
-    // console.log('fetching')
-    // console.log(jsonResponse.data.children);
     return jsonResponse.data.children.map(subreddit => subreddit.data);
 }
 
@@ -20,8 +18,8 @@ export const fetchPostsHot = async (subreddit) => {
     }
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
-    console.log('fetching')
-    // console.log(jsonResponse);
+    console.log('fetching');
+
     return jsonResponse.data.children;
 }
 
@@ -36,7 +34,7 @@ export const fetchPostsNew = async (subreddit) => {
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     console.log('fetching')
-    // console.log(jsonResponse);
+   
     return jsonResponse.data.children;
 }
 
@@ -51,7 +49,7 @@ export const fetchPostsTop = async (subreddit) => {
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     console.log('fetching')
-    // console.log(jsonResponse);
+    
     return jsonResponse.data.children;
 }
 
@@ -62,7 +60,7 @@ export const fetchSearchResults = async (searchTerm) => {
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     console.log('fetching')
-    console.log(jsonResponse);
+  
     return jsonResponse.data.children;
 }
 
@@ -71,8 +69,7 @@ export const fetchSubredditAbout = async (subreddit) => {
     const endpoint = `${url}/${subreddit}/about.json`;
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
-    // console.log('fetching')
-    // console.log(jsonResponse);
+  
     return jsonResponse.data;
 }
 
@@ -81,8 +78,7 @@ export const fetchUserAvatar = async (user) => {
     const endpoint = `https://www.reddit.com/user/${user}/about.json`;
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
-    // console.log(jsonResponse.data.icon_img);
-    // return {user: user ,url: jsonResponse.data.icon_img};
+
     return jsonResponse.data;
 }
 
@@ -93,7 +89,7 @@ export const fetchComments = async (permalink) => {
     const response = await fetch(endpoint);
     const jsonResponse = await response.json();
     console.log('fetching');
-    // console.log(jsonResponse[1].data.children);
+ 
     return jsonResponse[1].data.children.map(comment => comment.data);
 }
 

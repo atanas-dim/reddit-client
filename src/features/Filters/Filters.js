@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Filters.css';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card/Card';

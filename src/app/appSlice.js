@@ -50,18 +50,19 @@ export const appSlice = createSlice({
         posts: [],
         about: [],
         isLoading: false,
+        error: false
     },
     reducers: {
         setShowingComments: (state, action) => {
-            console.log(action);
+            // console.log(action);
             state.posts[action.payload.index].showingComments = action.payload.showingComments
         },
         setCommentsNum: (state, action) => {
-            console.log(action);
+            // console.log(action);
             state.posts[action.payload.index].commentsNum = action.payload.commentsNum;
         },
         setIsLoadingComments: (state, action) => {
-            console.log(action);
+            // console.log(action);
             state.posts[action.payload.index].isLoadingComments = action.payload.isLoadingComments;
         },
     },
@@ -70,7 +71,7 @@ export const appSlice = createSlice({
         [loadPostsHot.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
-            console.log(state.isLoading);
+            state.error = false;
         },
         [loadPostsHot.fulfilled]: (state, action) => {
             console.log('fulfilled')
@@ -82,19 +83,19 @@ export const appSlice = createSlice({
                 post.isLoadingComments = false;
                 return post;
             })
-            // console.log(state.posts);
             state.isLoading = false;
         },
         [loadPostsHot.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
+            state.error = true;
         },
 
         // LOAD NEW POSTS
         [loadPostsNew.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
-            console.log(state.isLoading);
+            state.error = false;
         },
         [loadPostsNew.fulfilled]: (state, action) => {
             console.log('fulfilled')
@@ -111,13 +112,14 @@ export const appSlice = createSlice({
         [loadPostsNew.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
+            state.error = true;
         },
 
         // LOAD TOP POSTS
         [loadPostsTop.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
-            console.log(state.isLoading);
+            state.error = false;
         },
         [loadPostsTop.fulfilled]: (state, action) => {
             console.log('fulfilled')
@@ -134,13 +136,14 @@ export const appSlice = createSlice({
         [loadPostsTop.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
+            state.error = true;
         },
 
         // LOAD SEARCH RESULTS
         [loadSearchResults.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
-            console.log(state.isLoading);
+            state.error = false;
         },
         [loadSearchResults.fulfilled]: (state, action) => {
             console.log('fulfilled')
@@ -156,12 +159,14 @@ export const appSlice = createSlice({
         [loadSearchResults.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
+            state.error = true;
         },
 
         //SUBREDDIT ABOUT
         [loadSubredditAbout.pending]: (state, action) => {
             console.log('pending')
             state.isLoading = true;
+            state.error = false;
         },
         [loadSubredditAbout.fulfilled]: (state, action) => {
             console.log('fulfilled');
@@ -171,6 +176,7 @@ export const appSlice = createSlice({
         [loadSubredditAbout.rejected]: (state, action) => {
             console.log('rejected')
             state.isLoading = false;
+            state.error = true;
         },
 
         // LOAD COMMENTS
@@ -196,5 +202,6 @@ export const appSlice = createSlice({
 export const selectAbout = state => state.app.about;
 export const selectPosts = state => state.app.posts;
 export const selectIsLoading = state => state.app.isLoading;
+export const selectError = state => state.app.error;
 export const { setShowingComments, setCommentsNum, setIsLoadingComments } = appSlice.actions;
 export default appSlice.reducer;

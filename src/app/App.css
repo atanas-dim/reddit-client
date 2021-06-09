@@ -67,10 +67,20 @@ button {
     transition: 0.2s;
 }
 
+.nav-link.inverted {
+    background: var(--color-highlight);
+    color: var(--color-bg);
+}
+
 @media (hover: hover) {
     .nav-link:hover {
         background: var(--color-bg);
         transition: 0.2s;
+    }
+
+    .nav-link.inverted:hover {
+        background: var(--color-bg);
+        color: var(--color-highlight);
     }
 }
 
@@ -79,7 +89,8 @@ button {
     transition: 0.2s;
 }
 
-.nav-link:active {
+.nav-link:active,
+.nav-link.inverted:active {
     background: var(--color-outline);
 }
 

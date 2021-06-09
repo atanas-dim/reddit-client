@@ -1,8 +1,44 @@
+# Reddit Client - React Redux
+> This is a portfolio project, part of the Codecademy Full-stack Engineer Course.
+
+## Table of contents
+* [General info](#general-info)
+* [Screenshots](#screenshots)
+* [Technologies](#technologies)
+* [To-do list](#to-do-list)
+* [See live](#see-live)
+* [Run locally](#run-locally)
+
+## General info
+The projects uses the unofficial JSON Reddit API to recreate a simplified read-only 
+version of the platform, featuring popular subreddits, filters, posts and comments.
+
+## Screenshots
+<img src="./public/project-thumb-reddit.jpg" width="800px">
+
+## Technologies
+* React
+* Redux
+* React Router
+* React Markdown to format comments under Reddit posts
+* React Icons
+
+## To-do list
+* Create more specific error messages when fetching has failed or page doesn't exist. Also when comments fail to load.
+
+## See live 
+Visit [this link](https://reddit-atanas.netlify.app/)  
+ 
+
+---
+
+---
+
+## Run locally
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
-
-In the project directory, you can run:
+Download the project on your computer. In the project directory, you can run:
 
 ### `npm start`
 

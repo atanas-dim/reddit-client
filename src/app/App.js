@@ -7,6 +7,7 @@ import Home from '../features/Home/Home';
 import Subreddit from '../features/Subreddit/Subreddit';
 import SearchResults from '../features/SearchResults/SearchResults';
 import SubredditsAside from '../features/SubredditsAside/SubredditsAside';
+import NotFoundPage from '../features/NotFoundPage/NotFoundPage'
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../features/Theme/themeSlice';
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" exact component={Home}/>
             <Route path="/r/:id" component={Subreddit} />
             <Route path="/search/:id" component={SearchResults} />
+            <Route component={NotFoundPage} />
           </Switch>
         </main>
         <aside>

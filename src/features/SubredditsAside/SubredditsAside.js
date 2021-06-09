@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './SubredditsAside.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSubredditNames, selectIsOpen, setIsOpen, selectCurrentSubreddit, loadSubredditNames } from './subredditsAsideSlice';
+import { selectSubredditNames, selectIsOpen, setIsOpen, selectCurrentSubreddit, loadSubredditNames, selectAsideError } from './subredditsAsideSlice';
 import Card from '../../components/Card/Card';
 import { AiFillHome } from "react-icons/ai";
 import { BiSubdirectoryRight } from "react-icons/bi";
@@ -13,6 +13,7 @@ const SubredditsAside = () => {
     const subreddits = useSelector(selectSubredditNames);
     const currentSubreddit = useSelector(selectCurrentSubreddit);
     const isOpen = useSelector(selectIsOpen);
+    const asideError = useSelector(selectAsideError);
     const icons = {
         home: <AiFillHome />,
         subreddits: <BiSubdirectoryRight />
@@ -41,6 +42,14 @@ const SubredditsAside = () => {
                 { subredditIcon ? <img src={subredditIcon} alt="subreddit avatar" /> : <IoLogoReddit /> }
                 {subredditName}
             </Link>  
+        )
+    }
+
+    if (asideError) {
+        return (
+            <Card className="subreddits-card">
+                <h3 className="asideErrorMessage">Failed loading subreddits.<br/> Try refresh</h3>
+            </Card>
         )
     }
 

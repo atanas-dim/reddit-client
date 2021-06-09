@@ -3,9 +3,10 @@ import About from '../About/About';
 import Filters from '../Filters/Filters';
 import Post from '../Post/Post';
 import PostLoading from '../Post/PostLoading';
+import NotFoundPage from '../NotFoundPage/NotFoundPage'
 import { AnimatedList } from 'react-animated-list';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPostsHot ,selectPosts, selectIsLoading } from '../../app/appSlice';
+import { loadPostsHot ,selectPosts, selectIsLoading, selectError } from '../../app/appSlice';
 import { loadSubredditAbout } from '../../app/appSlice';
 import { setCurrentSubreddit } from '../SubredditsAside/subredditsAsideSlice';
 import { setCurrentFilter } from '../Filters/filtersSlice';
@@ -14,6 +15,7 @@ const Subreddit = ({match}) => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts); 
     const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
     const currentSubreddit = match.params.id;
     const prefixedSubreddit = "r/" + currentSubreddit;
 
@@ -25,6 +27,12 @@ const Subreddit = ({match}) => {
         
         dispatch(loadPostsHot(prefixedSubreddit));
     }, [dispatch, prefixedSubreddit]);
+
+    if (error) {
+        return (
+            <NotFoundPage />
+        )
+    }
 
     return (
         <>

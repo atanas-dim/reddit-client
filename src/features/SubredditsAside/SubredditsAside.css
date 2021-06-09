@@ -82,6 +82,11 @@
     text-decoration: underline;
 }
 
+.asideErrorMessage {
+    color: var(--color-highlight);
+    margin: var(--spacing2);
+}
+
 @media only screen and (max-width: 768px) {
     .subreddits-card {
         margin-bottom: 0;
