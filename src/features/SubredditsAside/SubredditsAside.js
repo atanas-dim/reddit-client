@@ -30,11 +30,11 @@ const SubredditsAside = () => {
   useEffect(() => {
     console.log(!isMobile);
     dispatch(setIsOpen(!isMobile));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isOpen) dispatch(loadSubredditNames());
-  }, [isOpen]);
+  }, [isOpen, dispatch]);
 
   const createSubredditButton = (subreddit) => {
     const subredditName = subreddit.display_name_prefixed;
