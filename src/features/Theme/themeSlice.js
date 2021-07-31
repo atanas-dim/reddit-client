@@ -8,7 +8,9 @@ export const themeSlice = createSlice({
   reducers: {
     setSavedDarkMode: (state) => {
       const savedSettings = window.localStorage.getItem("redditSettings");
-      const savedDarkMode = JSON.parse(savedSettings).darkMode;
+      if (!savedSettings) return;
+      let savedDarkMode = JSON.parse(savedSettings).darkMode;
+      if (!savedDarkMode) return;
       state.darkMode = savedDarkMode;
     },
     toggleDarkMode: (state) => {
