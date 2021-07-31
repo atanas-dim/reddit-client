@@ -11,7 +11,6 @@ import {
   selectAsideError,
 } from "./subredditsAsideSlice";
 import Card from "../../components/Card/Card";
-import { isMobile } from "react-device-detect";
 import { AiFillHome } from "react-icons/ai";
 import { BiSubdirectoryRight } from "react-icons/bi";
 import { IoLogoReddit } from "react-icons/io5";
@@ -28,7 +27,7 @@ const SubredditsAside = () => {
   };
 
   useEffect(() => {
-    dispatch(setIsOpen(!isMobile));
+    dispatch(setIsOpen(window.innerWidth > 768));
   }, [dispatch]);
 
   useEffect(() => {
