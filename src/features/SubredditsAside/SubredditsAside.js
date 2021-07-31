@@ -28,7 +28,6 @@ const SubredditsAside = () => {
   };
 
   useEffect(() => {
-    console.log(!isMobile);
     dispatch(setIsOpen(!isMobile));
   }, [dispatch]);
 

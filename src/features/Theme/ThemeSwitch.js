@@ -1,22 +1,30 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import SliderSwitch from '../../components/SliderSwitch/SliderSwitch';
-import { toggleTheme } from '../Theme/themeSlice';
-import { selectTheme } from './themeSlice';
-import { BiSun } from 'react-icons/bi';
-import { BiMoon } from 'react-icons/bi';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SliderSwitch from "../../components/SliderSwitch/SliderSwitch";
+import { setSavedDarkMode, toggleDarkMode } from "../Theme/themeSlice";
+import { selectDarkMode } from "./themeSlice";
+import { BiSun } from "react-icons/bi";
+import { BiMoon } from "react-icons/bi";
 
 const ThemeSwitch = () => {
-    const dispatch = useDispatch();
-    const theme = useSelector(selectTheme);
-    
-    const handleClick = () => {
-        dispatch(toggleTheme());
-    }
+  const dispatch = useDispatch();
+  const darkMode = useSelector(selectDarkMode);
 
-    return (
-        <SliderSwitch onClick={handleClick} icon={ theme === 'light' ? <BiSun /> : <BiMoon/> } id="theme-switch-input" />
-    )
-}
+  useEffect(() => {
+    dispatch(setSavedDarkMode());
+  }, [dispatch]);
+
+  const handleClick = () => {
+    dispatch(toggleDarkMode());
+  };
+
+  return (
+    <SliderSwitch
+      onClick={handleClick}
+      icon={!darkMode ? <BiSun /> : <BiMoon />}
+      id="theme-switch-input"
+    />
+  );
+};
 
 export default ThemeSwitch;

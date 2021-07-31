@@ -1,17 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const themeSlice = createSlice({
-    name: 'theme',
-    initialState: {
-        theme: 'light',
+  name: "theme",
+  initialState: {
+    darkMode: false,
+  },
+  reducers: {
+    setSavedDarkMode: (state) => {
+      const savedSettings = window.localStorage.getItem("redditSettings");
+      const savedDarkMode = JSON.parse(savedSettings).darkMode;
+      state.darkMode = savedDarkMode;
     },
-    reducers: {
-        toggleTheme: (state) => {
-            state.theme === 'light' ? state.theme = 'dark' : state.theme = 'light';
-        }
-    }
-})
+    toggleDarkMode: (state) => {
+      state.darkMode = !state.darkMode;
+      window.localStorage.setItem(
+        "redditSettings",
+        JSON.stringify({ darkMode: state.darkMode })
+      );
+    },
+  },
+});
 
-export const selectTheme = state => state.theme.theme;
-export const { toggleTheme } = themeSlice.actions;
+export const selectDarkMode = (state) => state.theme.darkMode;
+export const { setSavedDarkMode, toggleDarkMode } = themeSlice.actions;
 export default themeSlice.reducer;
