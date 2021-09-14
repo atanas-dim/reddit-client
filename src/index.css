@@ -4,15 +4,15 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -45,7 +45,7 @@ aside {
 @media only screen and (max-width: 768px) {
   #app-container {
     grid-template-columns: 1fr;
-    
+
     grid-gap: var(--spacing2);
   }
 
@@ -64,7 +64,7 @@ aside {
     grid-column: 1;
     grid-row: 3;
     margin: 0 var(--spacing2);
-  }  
+  }
 
   aside .card {
     /* height: 60px; */
